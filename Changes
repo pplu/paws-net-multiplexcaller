@@ -1,0 +1,5 @@
+0.02 2017-07-24
+ - The unsuspecting worlds' computers have no AWS credentials on them, making tests fail. Fixed
+
+0.01 2017-07-24
+ - Initial release to an unsuspecting world

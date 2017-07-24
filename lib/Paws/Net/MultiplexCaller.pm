@@ -2,7 +2,7 @@ package Paws::Net::MultiplexCaller;
   use Moose;
   with 'Paws::Net::CallerRole';
 
-  our $VERSION = '0.01';
+  our $VERSION = '0.02';
 
   # TODO: HashRef of things that do Paws::Net::CallerRole
   has caller_for => (is => 'ro', isa => 'HashRef', required => 1);
