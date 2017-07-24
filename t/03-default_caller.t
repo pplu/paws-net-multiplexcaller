@@ -9,9 +9,14 @@ use Test::More tests => 1;
 use Paws;
 use CounterCaller;
 use Paws::Net::MultiplexCaller;
+use Paws::Credential::Explicit;
 
 my $paws1 = Paws->new(
   config => {
+    credentials => Paws::Credential::Explicit->new(
+      access_key => '-',
+      secret_key => '-',
+    ),
     caller => Paws::Net::MultiplexCaller->new(
       caller_for => { },
       default_caller => CounterCaller->new 
