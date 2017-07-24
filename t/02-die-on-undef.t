@@ -7,16 +7,14 @@ use Test::More;
 use Test::Exception;
 
 use Paws;
+use CounterCaller;
 use Paws::Net::MultiplexCaller;
-use Paws::Net::ImplementationCaller::SQS;
 
 my $paws1 = Paws->new(
   config => {
     caller => Paws::Net::MultiplexCaller->new(
       caller_for => {
-        SQS => Paws::Net::ImplementationCaller::SQS->new(
-          user => undef,
-        ),
+        SQS => CounterCaller->new
       }
     )
   }
@@ -27,6 +25,8 @@ my $result;
 lives_ok(sub {
   $result = $sqs->CreateQueue(QueueName => 'qname');
 }, 'SQS is auto-loaded');
+
+cmp_ok($sqs->caller->caller_for->{SQS}->called_me_times, '==', 1, 'Called SQS one time');
 
 my $ec2 = $paws1->service('EC2', region => 'test');
 throws_ok(sub {

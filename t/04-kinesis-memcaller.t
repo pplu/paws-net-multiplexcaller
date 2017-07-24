@@ -3,29 +3,13 @@
 use Test::More;
 use Test::Exception;
 
+use lib 't/lib/';
+
 use Paws;
+use CounterCaller;
 use Paws::Kinesis::MemoryCaller;
 use Paws::Credential::Explicit;
 use Paws::Net::MultiplexCaller;
-
-package Paws::Net::TestCaller {
-  use Moose;
-  with 'Paws::Net::CallerRole';
-  use Test::More;
-  has called_me_times => (
-    is => 'ro',
-    default => 0,
-    traits => [ 'Counter' ],
-    handles => {
-      register_call => 'inc',
-    }
-  );
-  sub do_call {
-    my $self = shift;
-    $self->register_call;
-  }
-  sub caller_to_response { }
-}
 
 my $paws1 = Paws->new(
   config => {
@@ -37,7 +21,7 @@ my $paws1 = Paws->new(
       caller_for => {
         Kinesis => Paws::Kinesis::MemoryCaller->new(),
       },
-      default_caller => Paws::Net::TestCaller->new 
+      default_caller => CounterCaller->new 
     )
   }
 );
