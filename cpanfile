@@ -4,7 +4,9 @@ on test => sub {
   requires 'Paws::Kinesis::MemoryCaller';
   requires 'Test::More';
   requires 'Test::Exception';
+};
 
+on develop => sub {
   requires 'Pod::Markdown';
 
   requires 'Dist::Zilla';
