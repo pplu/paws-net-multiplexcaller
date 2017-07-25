@@ -18,14 +18,8 @@ package Paws::Net::MultiplexCaller;
 
   sub do_call {
     my ($self, $service, $call_object) = @_;
-    my $result = $self->get_implementation($self->service_from_callobject($call_object))
+    return $self->get_implementation($self->service_from_callobject($call_object))
              ->do_call($service, $call_object);
-
-    if (ref($result) and $result->isa('Paws::Exception')){
-      $result->throw;
-    }
-
-    return $result;
   }
 
   sub caller_to_response {
