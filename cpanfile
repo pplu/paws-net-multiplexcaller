@@ -1,4 +1,5 @@
 requires 'Paws';
+requires 'Moose';
 
 on test => sub {
   requires 'Paws::Kinesis::MemoryCaller';
